@@ -22,7 +22,7 @@ const variantClasses = {
     fallback: 'text-[0.95rem]',
   },
   band: {
-    frame: 'h-[5.6rem] w-[5.6rem]',
+    frame: 'h-[4.4rem] w-[4.4rem] min-[901px]:h-[5.6rem] min-[901px]:w-[5.6rem]',
     inset: 'p-0',
     fallback: 'text-[1.2rem]',
   },

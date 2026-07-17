@@ -1,5 +1,5 @@
 import { TeamLogo } from '../../home/components/TeamLogo'
-import type { PublicMatchRound } from '../mocks/matchesPage.mock'
+import type { PublicMatchRound } from '../types/matches.types'
 
 type FixtureRoundCardProps = {
   round: PublicMatchRound
@@ -27,17 +27,26 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
       <div className="divide-y divide-[rgba(11,27,69,0.08)]">
         {round.matches.map((match) => {
           const isFinished = match.status === 'finished'
+          const courtLabel = match.field ?? match.venue ?? 'Cancha por confirmar'
 
           return (
             <div
               key={match.id}
-              className="grid gap-4 px-4 py-4 min-[901px]:grid-cols-[minmax(0,1fr)_9rem_minmax(0,1fr)] min-[901px]:items-center"
+              className="grid grid-cols-[2.6rem_2.2rem_minmax(0,1fr)_2.2rem_2.6rem] items-center gap-2 px-4 py-4 min-[901px]:grid-cols-[minmax(0,1fr)_9rem_minmax(0,1fr)] min-[901px]:gap-4"
             >
-              <div className="grid grid-cols-[2.6rem_minmax(0,1fr)_auto] items-center gap-3">
+              <div className="min-[901px]:grid min-[901px]:grid-cols-[2.6rem_minmax(0,1fr)_auto] min-[901px]:items-center min-[901px]:gap-3">
                 <TeamLogo team={match.homeTeam} size="table" />
-                <span className="truncate text-[0.95rem] font-semibold text-[var(--color-primary)]">
+                <span className="hidden truncate text-[0.95rem] font-semibold text-[var(--color-primary)] min-[901px]:block">
                   {match.homeTeam.name}
                 </span>
+                {isFinished ? (
+                  <strong className="hidden text-[1rem] font-extrabold text-[var(--color-primary)] min-[901px]:block">
+                    {match.homeScore ?? 0}
+                  </strong>
+                ) : null}
+              </div>
+
+              <div className="grid min-h-[1.5rem] place-items-center min-[901px]:hidden">
                 {isFinished ? (
                   <strong className="text-[1rem] font-extrabold text-[var(--color-primary)]">
                     {match.homeScore ?? 0}
@@ -47,7 +56,7 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
 
               <div className="grid gap-1 text-center">
                 {isFinished ? (
-                  <span className="text-[0.72rem] font-extrabold tracking-[0.14em] text-[var(--color-accent)] uppercase">
+                  <span className="text-[0.72rem] font-extrabold tracking-[0.14em] text-[var(--color-accent)] uppercase min-[901px]:text-[0.72rem]">
                     Finalizado
                   </span>
                 ) : (
@@ -61,20 +70,28 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
                   {timeFormatter.format(new Date(match.matchDate))}
                 </span>
                 <span className="truncate text-[0.78rem] text-[var(--color-text-muted)]">
-                  {match.venue}
+                  {courtLabel}
                 </span>
               </div>
 
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_2.6rem] items-center justify-end gap-3">
+              <div className="grid min-h-[1.5rem] place-items-center min-[901px]:hidden">
                 {isFinished ? (
                   <strong className="text-[1rem] font-extrabold text-[var(--color-primary)]">
                     {match.awayScore ?? 0}
                   </strong>
                 ) : null}
-                <span className="justify-self-end truncate text-right text-[0.95rem] font-semibold text-[var(--color-primary)]">
+              </div>
+
+              <div className="justify-self-end min-[901px]:grid min-[901px]:grid-cols-[auto_auto_2.6rem] min-[901px]:items-center min-[901px]:justify-end min-[901px]:gap-2">
+                {isFinished ? (
+                  <strong className="hidden text-[1rem] font-extrabold text-[var(--color-primary)] min-[901px]:block">
+                    {match.awayScore ?? 0}
+                  </strong>
+                ) : null}
+                <span className="hidden max-w-[10rem] truncate text-right text-[0.95rem] font-semibold text-[var(--color-primary)] min-[901px]:block">
                   {match.awayTeam.name}
                 </span>
-                <div className="justify-self-end">
+                <div>
                   <TeamLogo team={match.awayTeam} size="table" />
                 </div>
               </div>
@@ -82,6 +99,17 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
           )
         })}
       </div>
+
+      {round.byeTeam ? (
+        <footer className="border-t border-[rgba(11,27,69,0.08)] bg-[rgba(11,27,69,0.03)] px-4 py-3">
+          <p className="text-[0.72rem] font-extrabold tracking-[0.14em] text-[var(--color-text-muted)] uppercase">
+            Equipo libre
+          </p>
+          <p className="mt-1 text-[0.95rem] font-semibold text-[var(--color-primary)]">
+            {round.byeTeam.name}
+          </p>
+        </footer>
+      ) : null}
     </article>
   )
 }

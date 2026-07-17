@@ -59,26 +59,28 @@ export function StatisticsPage() {
           description=""
         />
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {statisticsCategoryOptions.map((tab) => {
-            const isActive = activeCategory === tab.key
+        <div className="mt-6 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex w-max flex-nowrap gap-2 min-[901px]:w-auto">
+            {statisticsCategoryOptions.map((tab) => {
+              const isActive = activeCategory === tab.key
 
-            return (
-              <button
-                key={tab.key}
-                type="button"
-                className={[
-                  'rounded-full border px-4 py-2.5 text-sm font-extrabold tracking-[0.08em] uppercase transition-colors duration-200',
-                  isActive
-                    ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-white'
-                    : 'border-[var(--color-line)] bg-white text-[var(--color-primary)] hover:bg-[rgba(11,27,69,0.04)]',
-                ].join(' ')}
-                onClick={() => setActiveCategory(tab.key)}
-              >
-                {tab.label}
-              </button>
-            )
-          })}
+              return (
+                <button
+                  key={tab.key}
+                  type="button"
+                  className={[
+                    'shrink-0 rounded-full border px-4 py-2.5 text-sm font-extrabold tracking-[0.08em] uppercase transition-colors duration-200',
+                    isActive
+                      ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-white'
+                      : 'border-[var(--color-line)] bg-white text-[var(--color-primary)] hover:bg-[rgba(11,27,69,0.04)]',
+                  ].join(' ')}
+                  onClick={() => setActiveCategory(tab.key)}
+                >
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
         </div>
 
         <section className="mt-6 overflow-hidden rounded-[1.8rem] border border-[var(--color-line)] bg-white shadow-[0_18px_50px_rgba(5,12,31,0.10)]">
