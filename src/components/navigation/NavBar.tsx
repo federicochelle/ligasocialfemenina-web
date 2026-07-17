@@ -30,10 +30,10 @@ export function NavBar() {
       <div className="public-page-shell flex min-h-[4.5rem] items-center justify-between gap-6">
         <NavLink
           to="/"
-          className="inline-flex shrink-0 items-center max-[860px]:-ml-3"
+          className="inline-flex shrink-0 items-center max-[860px]:-ml-5"
           onClick={handleCloseMenu}
         >
-          <BrandMark imageClassName="h-12 w-[11rem] shrink-0 object-contain max-[860px]:h-[2.9rem] max-[860px]:w-[10.1rem]" />
+          <BrandMark imageClassName="h-12 w-[11rem] shrink-0 object-contain max-[860px]:h-[3.2rem] max-[860px]:w-[11rem]" />
         </NavLink>
 
         <button

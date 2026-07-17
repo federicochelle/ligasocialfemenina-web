@@ -42,7 +42,7 @@ export function MatchTickerSection({ matches, loading, error }: MatchTickerSecti
 
       <div
         ref={railRef}
-        className="grid flex-1 auto-cols-[minmax(11.5rem,13.5rem)] grid-flow-col gap-3 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-[640px]:auto-cols-[minmax(11rem,12.5rem)]"
+        className="grid flex-1 auto-cols-[minmax(11.5rem,13.5rem)] grid-flow-col gap-3 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-[640px]:auto-cols-[minmax(12rem,13rem)]"
       >
         {loading
           ? Array.from({ length: 4 }, (_, index) => (

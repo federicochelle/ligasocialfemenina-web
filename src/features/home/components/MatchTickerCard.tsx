@@ -20,7 +20,7 @@ export function MatchTickerCard({ match }: MatchTickerCardProps) {
 
   return (
     <article className="grid h-[8.4rem] gap-[0.5rem] rounded-[0.35rem] border border-[rgba(11,27,69,0.08)] bg-[rgba(255,255,255,0.96)] px-[0.8rem] py-[0.7rem] shadow-[0_10px_20px_rgba(8,17,41,0.08)]">
-      <div className="flex items-center justify-between gap-2">
+      <div className="-mx-[0.2rem] flex items-center justify-between gap-2 rounded-[0.3rem] bg-[rgba(11,27,69,0.05)] px-[0.4rem] py-[0.22rem]">
         <span className="text-[0.62rem] leading-[1.1] font-extrabold tracking-[0.04em] text-[var(--color-text-muted)]">
           {match.seasonLabel ?? 'Liga Social Femenina'}
         </span>
@@ -61,7 +61,7 @@ export function MatchTickerCard({ match }: MatchTickerCardProps) {
         </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-2 text-[0.66rem] font-extrabold tracking-[0.06em] text-[var(--color-text-muted)] uppercase">
+      <div className="mt-auto flex items-center justify-between gap-3 whitespace-nowrap text-[0.62rem] font-extrabold tracking-[0.05em] text-[var(--color-text-muted)] uppercase min-[901px]:text-[0.66rem] min-[901px]:tracking-[0.06em]">
         <span>{dateFormatter.format(new Date(match.matchDate))}</span>
         <span>{timeFormatter.format(new Date(match.matchDate))}</span>
       </div>

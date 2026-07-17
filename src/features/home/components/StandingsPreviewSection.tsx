@@ -22,9 +22,9 @@ export function StandingsPreviewSection({
           <HomeSectionEmptyState message="Sin posiciones disponibles." />
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <div className="min-w-[31rem]">
-            <div className="grid grid-cols-[1.9rem_2.6rem_minmax(8rem,1fr)_2.6rem_2.6rem_2.6rem_2.9rem] items-center gap-[0.45rem] border-b border-[var(--color-line)] bg-[rgba(11,27,69,0.04)] px-4 py-3 text-[0.72rem] font-extrabold tracking-[0.14em] text-[var(--color-text-muted)] uppercase min-[901px]:px-5">
+        <div>
+          <div>
+            <div className="grid grid-cols-[1.2rem_1.9rem_minmax(0,1fr)_1.7rem_1.7rem_1.7rem_2rem] items-center gap-x-1 border-b border-[var(--color-line)] bg-[rgba(11,27,69,0.04)] px-3 py-3 text-[0.58rem] font-extrabold tracking-[0.08em] text-[var(--color-text-muted)] uppercase min-[901px]:grid-cols-[1.9rem_2.6rem_minmax(8rem,1fr)_2.6rem_2.6rem_2.6rem_2.9rem] min-[901px]:gap-[0.45rem] min-[901px]:px-5 min-[901px]:text-[0.72rem] min-[901px]:tracking-[0.14em]">
               <span>#</span>
               <span />
               <span>Equipo</span>
@@ -37,9 +37,11 @@ export function StandingsPreviewSection({
             {standings.map((team) => (
               <div
                 key={team.teamId}
-                className="grid grid-cols-[1.9rem_2.6rem_minmax(8rem,1fr)_2.6rem_2.6rem_2.6rem_2.9rem] items-center gap-[0.45rem] border-b border-[rgba(11,27,69,0.06)] px-4 py-2.5 transition-colors duration-200 hover:bg-[rgba(11,27,69,0.04)] min-[901px]:px-5"
+                className="grid grid-cols-[1.2rem_1.9rem_minmax(0,1fr)_1.7rem_1.7rem_1.7rem_2rem] items-center gap-x-1 border-b border-[rgba(11,27,69,0.06)] px-3 py-2.5 transition-colors duration-200 hover:bg-[rgba(11,27,69,0.04)] min-[901px]:grid-cols-[1.9rem_2.6rem_minmax(8rem,1fr)_2.6rem_2.6rem_2.6rem_2.9rem] min-[901px]:gap-[0.45rem] min-[901px]:px-5"
               >
-                <span className="text-sm font-bold text-[var(--color-text)]">{team.rank}</span>
+                <span className="text-xs font-bold text-[var(--color-text)] min-[901px]:text-sm">
+                  {team.rank}
+                </span>
                 <TeamLogo
                   team={{
                     id: team.teamId,
@@ -48,17 +50,19 @@ export function StandingsPreviewSection({
                   }}
                   size="table"
                 />
-                <strong className="hidden truncate text-[0.95rem] text-[var(--color-primary)] min-[901px]:block">
+                <strong className="min-w-0 pr-1 text-[0.77rem] leading-[1.12] text-[var(--color-primary)] min-[901px]:truncate min-[901px]:pr-0 min-[901px]:text-[0.95rem]">
                   {team.teamName}
                 </strong>
-                <span className="text-center text-sm text-[var(--color-text)]">
+                <span className="text-center text-[0.72rem] text-[var(--color-text)] min-[901px]:text-sm">
                   {team.gamesPlayed}
                 </span>
-                <span className="text-center text-sm text-[var(--color-text)]">{team.wins}</span>
-                <span className="text-center text-sm text-[var(--color-text)]">
+                <span className="text-center text-[0.72rem] text-[var(--color-text)] min-[901px]:text-sm">
+                  {team.wins}
+                </span>
+                <span className="text-center text-[0.72rem] text-[var(--color-text)] min-[901px]:text-sm">
                   {team.losses}
                 </span>
-                <span className="text-center text-sm font-bold text-[var(--color-primary)]">
+                <span className="text-center text-[0.72rem] font-bold text-[var(--color-primary)] min-[901px]:text-sm">
                   {team.standingsPoints}
                 </span>
               </div>
