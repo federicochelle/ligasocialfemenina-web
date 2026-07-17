@@ -98,7 +98,7 @@ export async function getRecentResults() {
 }
 
 export async function getStandingsPreview() {
-  return (await getStandings()).slice(0, 5)
+  return getStandings()
 }
 
 export async function getLeadersPreview() {
