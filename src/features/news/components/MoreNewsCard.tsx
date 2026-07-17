@@ -18,10 +18,10 @@ export function MoreNewsCard({ article }: MoreNewsCardProps) {
             src={article.coverImage}
             alt=""
             loading="lazy"
-            className="h-52 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] max-[900px]:h-48"
+            className="h-60 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] max-[900px]:h-56"
           />
         ) : (
-          <div className="flex h-52 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] max-[900px]:h-48">
+          <div className="flex h-60 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] max-[900px]:h-56">
             Sin imagen disponible
           </div>
         )}

@@ -15,10 +15,10 @@ export function SecondaryNewsCard({ article }: SecondaryNewsCardProps) {
             src={article.coverImage}
             alt=""
             loading="lazy"
-            className="h-36 w-full object-cover min-[901px]:h-[8.6rem]"
+            className="h-44 w-full object-cover min-[901px]:h-[11rem]"
           />
         ) : (
-          <div className="flex h-36 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] min-[901px]:h-[8.6rem]">
+          <div className="flex h-44 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] min-[901px]:h-[11rem]">
             Sin imagen disponible
           </div>
         )}

@@ -18,10 +18,10 @@ export function NewsListRow({ article }: NewsListRowProps) {
             src={article.coverImage}
             alt=""
             loading="lazy"
-            className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] max-[900px]:h-56"
+            className="h-72 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] max-[900px]:h-64"
           />
         ) : (
-          <div className="flex h-64 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] max-[900px]:h-56">
+          <div className="flex h-72 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] max-[900px]:h-64">
             Sin imagen disponible
           </div>
         )}

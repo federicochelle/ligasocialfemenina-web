@@ -151,16 +151,16 @@ export function NewsDetailPage() {
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-[1.6rem]">
+          <div className="overflow-hidden rounded-[1.6rem] min-[901px]:mx-auto min-[901px]:w-full min-[901px]:max-w-[50rem]">
             {article.coverImage ? (
               <img
                 src={article.coverImage}
                 alt=""
                 loading="lazy"
-                className="aspect-video w-full object-cover"
+                className="h-[18.5rem] w-full object-cover min-[901px]:h-[26rem]"
               />
             ) : (
-              <div className="flex aspect-video w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)]">
+              <div className="flex h-[18.5rem] w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] min-[901px]:h-[26rem]">
                 Sin imagen disponible
               </div>
             )}
@@ -178,12 +178,12 @@ export function NewsDetailPage() {
         </div>
       </article>
 
-      <section className="grid gap-5 pt-3">
+      <section className="grid gap-10 pt-6 min-[901px]:gap-10 min-[901px]:pt-12">
         <h2 className="text-[0.92rem] font-extrabold tracking-[0.16em] text-white uppercase">
           Mas noticias
         </h2>
 
-        <div className="grid gap-5 min-[901px]:grid-cols-3">
+        <div className="grid gap-10 min-[901px]:grid-cols-3">
           {isRelatedLoading ? <p className="text-white/82">Cargando mas noticias...</p> : null}
           {!isRelatedLoading
             ? relatedArticles.map((relatedArticle) => (

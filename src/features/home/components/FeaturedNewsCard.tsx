@@ -15,10 +15,10 @@ export function FeaturedNewsCard({ article }: FeaturedNewsCardProps) {
             src={article.coverImage}
             alt=""
             loading="lazy"
-            className="h-52 w-full object-cover min-[901px]:h-[17.5rem]"
+            className="h-64 w-full object-cover min-[901px]:h-[20.5rem]"
           />
         ) : (
-          <div className="flex h-52 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] min-[901px]:h-[17.5rem]">
+          <div className="flex h-64 w-full items-center justify-center bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-primary)] min-[901px]:h-[20.5rem]">
             Sin imagen disponible
           </div>
         )}
