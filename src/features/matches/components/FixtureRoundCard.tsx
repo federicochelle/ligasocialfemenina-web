@@ -102,12 +102,15 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
 
       {round.byeTeam ? (
         <footer className="border-t border-[rgba(11,27,69,0.08)] bg-[rgba(11,27,69,0.03)] px-4 py-3">
-          <p className="text-[0.72rem] font-extrabold tracking-[0.14em] text-[var(--color-text-muted)] uppercase">
-            Equipo libre
-          </p>
-          <p className="mt-1 text-[0.95rem] font-semibold text-[var(--color-primary)]">
-            {round.byeTeam.name}
-          </p>
+          <div className="flex items-center justify-center gap-3 text-center">
+            <span className="text-[0.72rem] font-extrabold tracking-[0.14em] text-[var(--color-text-muted)] uppercase">
+              Libre:
+            </span>
+            <TeamLogo team={round.byeTeam} size="table" />
+            <p className="text-[0.95rem] font-semibold text-[var(--color-primary)]">
+              {round.byeTeam.name}
+            </p>
+          </div>
         </footer>
       ) : null}
     </article>

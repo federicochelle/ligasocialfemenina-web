@@ -17,6 +17,18 @@ type MatchRow = {
   status: PublicMatchStatus | 'live' | 'cancelled'
   home_score: number | null
   away_score: number | null
+  matchday:
+    | {
+        id: string
+        round_number: number | null
+        bye_team: TeamRelation | TeamRelation[] | null
+      }
+    | Array<{
+        id: string
+        round_number: number | null
+        bye_team: TeamRelation | TeamRelation[] | null
+      }>
+    | null
   home_team: TeamRelation | TeamRelation[] | null
   away_team: TeamRelation | TeamRelation[] | null
 }
@@ -30,6 +42,15 @@ const publicMatchesColumns = `
   status,
   home_score,
   away_score,
+  matchday:matchdays!matches_matchday_id_fkey(
+    id,
+    round_number,
+    bye_team:teams!matchdays_bye_team_id_fkey(
+      id,
+      name,
+      logo_url
+    )
+  ),
   home_team:teams!matches_home_team_id_fkey(id, name, logo_url),
   away_team:teams!matches_away_team_id_fkey(id, name, logo_url)
 `
@@ -66,6 +87,8 @@ function groupMatchesIntoRounds(matches: MatchRow[]): PublicMatchRound[] {
     string,
     {
       id: string
+      roundNumber: number | null
+      byeTeam: HomeTeamSummary | null
       matches: MatchRow[]
       firstMatchDate: number
     }
@@ -79,6 +102,8 @@ function groupMatchesIntoRounds(matches: MatchRow[]): PublicMatchRound[] {
     const matchdayId = match.matchday_id ?? `without-matchday-${match.id}`
     const timestamp = getMatchTimestamp(match.match_date)
     const existingRound = roundsByMatchday.get(matchdayId)
+    const matchday = normalizeMatchdayRelation(match.matchday)
+    const byeTeam = mapTeamSummary(normalizeTeamRelation(matchday?.bye_team ?? null))
 
     if (existingRound) {
       existingRound.matches.push(match)
@@ -88,6 +113,8 @@ function groupMatchesIntoRounds(matches: MatchRow[]): PublicMatchRound[] {
 
     roundsByMatchday.set(matchdayId, {
       id: matchdayId,
+      roundNumber: matchday?.round_number ?? null,
+      byeTeam,
       matches: [match],
       firstMatchDate: timestamp,
     })
@@ -97,9 +124,9 @@ function groupMatchesIntoRounds(matches: MatchRow[]): PublicMatchRound[] {
     .sort((left, right) => left.firstMatchDate - right.firstMatchDate)
     .map((round, index) => ({
       id: round.id,
-      roundNumber: index + 1,
-      label: `Fecha ${index + 1}`,
-      byeTeam: null,
+      roundNumber: round.roundNumber ?? index + 1,
+      label: `Fecha ${round.roundNumber ?? index + 1}`,
+      byeTeam: round.byeTeam,
       matches: round.matches
         .sort((left, right) => getMatchTimestamp(left.match_date) - getMatchTimestamp(right.match_date))
         .map(mapMatchRow),
@@ -117,6 +144,14 @@ function getMatchTimestamp(matchDate: string) {
 }
 
 function normalizeTeamRelation(relation: TeamRelation | TeamRelation[] | null) {
+  if (Array.isArray(relation)) {
+    return relation[0] ?? null
+  }
+
+  return relation
+}
+
+function normalizeMatchdayRelation(relation: MatchRow['matchday']) {
   if (Array.isArray(relation)) {
     return relation[0] ?? null
   }
