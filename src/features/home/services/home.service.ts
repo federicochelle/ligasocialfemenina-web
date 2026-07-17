@@ -45,29 +45,21 @@ const homeMatchColumns = `
 `
 
 export async function getHomeMatchTicker() {
-  const [finishedResult, scheduledResult] = await Promise.all([
-    supabase
-      .from('matches')
-      .select(homeMatchColumns)
-      .eq('status', 'finished')
-      .order('match_date', { ascending: false })
-      .limit(4),
-    supabase
-      .from('matches')
-      .select(homeMatchColumns)
-      .eq('status', 'scheduled')
-      .order('match_date', { ascending: true })
-      .limit(4),
-  ])
+  const { data, error } = await supabase
+    .from('matches')
+    .select(homeMatchColumns)
+    .in('status', ['scheduled', 'finished'])
+    .order('match_date', { ascending: true })
 
-  if (finishedResult.error || scheduledResult.error) {
+  if (error) {
     throw new Error('No pudimos obtener los partidos destacados del inicio.')
   }
 
-  const finishedMatches = (finishedResult.data satisfies MatchRow[]).map(mapMatchTickerRow)
-  const scheduledMatches = (scheduledResult.data satisfies MatchRow[]).map(mapMatchTickerRow)
+  const tickerMatches = ((data ?? []) as MatchRow[])
+    .map(mapMatchTickerRow)
+    .filter((match) => match.roundNumber !== null && match.roundNumber >= 1 && match.roundNumber <= 5)
 
-  return [...finishedMatches, ...scheduledMatches].slice(0, 8) satisfies HomeMatchTickerItem[]
+  return tickerMatches satisfies HomeMatchTickerItem[]
 }
 
 export async function getNextScheduledMatch() {
