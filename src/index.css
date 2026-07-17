@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Avenir Next", Montserrat, "Segoe UI", sans-serif;
+
+  --color-primary: #0b1b45;
+  --color-accent: #f644a0;
+  --color-accent-soft: rgba(246, 68, 160, 0.14);
+  --color-surface: #ffffff;
+  --color-line: rgba(11, 27, 69, 0.1);
+  --color-text: #20304f;
+  --color-text-muted: #667391;
+  --color-text-on-dark: #f8faff;
+
+  --shadow-soft: 0 22px 48px rgba(9, 18, 44, 0.08);
+  --shadow-card: 0 24px 70px rgba(8, 17, 41, 0.1);
+
+  --radius-xl: 2rem;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--color-text);
+    background:
+      radial-gradient(circle at top, rgba(246, 68, 160, 0.1), transparent 28%),
+      linear-gradient(180deg, #07112d 0%, #0b1b45 42%, #0a173b 100%);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.04), transparent 24%),
+    radial-gradient(circle at 0% 16%, rgba(246, 68, 160, 0.1), transparent 26%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@layer components {
+  .public-page-shell {
+    width: min(1320px, calc(100% - 2rem));
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .public-page-shell {
+      width: min(100% - 1rem, 1320px);
+    }
+  }
+}
