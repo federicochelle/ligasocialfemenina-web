@@ -44,30 +44,32 @@ const homeMatchColumns = `
   away_team:teams!matches_away_team_id_fkey(id, name, logo_url)
 `
 
-export async function getHomeMatchTicker() {
-  const [finishedResult, scheduledResult] = await Promise.all([
-    supabase
-      .from('matches')
-      .select(homeMatchColumns)
-      .eq('status', 'finished')
-      .order('match_date', { ascending: false })
-      .limit(4),
-    supabase
-      .from('matches')
-      .select(homeMatchColumns)
-      .eq('status', 'scheduled')
-      .order('match_date', { ascending: true })
-      .limit(4),
-  ])
+const homeTickerColumns = `
+  id,
+  match_date,
+  matchday_id,
+  venue,
+  field,
+  status,
+  home_score,
+  away_score,
+  season_label,
+  home_team:teams!matches_home_team_id_fkey(id, name, logo_url),
+  away_team:teams!matches_away_team_id_fkey(id, name, logo_url)
+`
 
-  if (finishedResult.error || scheduledResult.error) {
+export async function getHomeMatchTicker() {
+  const { data, error } = await supabase
+    .from('matches')
+    .select(homeTickerColumns)
+    .in('status', ['scheduled', 'finished'])
+    .order('match_date', { ascending: true })
+
+  if (error) {
     throw new Error('No pudimos obtener los partidos destacados del inicio.')
   }
 
-  const finishedMatches = (finishedResult.data satisfies MatchRow[]).map(mapMatchTickerRow)
-  const scheduledMatches = (scheduledResult.data satisfies MatchRow[]).map(mapMatchTickerRow)
-
-  return [...finishedMatches, ...scheduledMatches].slice(0, 8) satisfies HomeMatchTickerItem[]
+  return buildTickerMatches((data ?? []) as MatchRow[])
 }
 
 export async function getNextScheduledMatch() {
@@ -163,6 +165,46 @@ function mapMatchTickerRow(match: MatchRow): HomeMatchTickerItem {
     homeTeam: mapTickerTeam(homeTeam),
     awayTeam: mapTickerTeam(awayTeam),
   }
+}
+
+function buildTickerMatches(matches: MatchRow[]) {
+  const groupedMatchdays = new Map<
+    string,
+    {
+      matchdayId: string
+      roundNumber: number
+      matches: MatchRow[]
+      firstMatchTimestamp: number
+    }
+  >()
+
+  for (const match of matches) {
+    const matchdayId = match.matchday_id ?? `without-matchday-${match.id}`
+    const timestamp = new Date(match.match_date).getTime()
+    const existing = groupedMatchdays.get(matchdayId)
+
+    if (existing) {
+      existing.matches.push(match)
+      existing.firstMatchTimestamp = Math.min(existing.firstMatchTimestamp, timestamp)
+      continue
+    }
+
+    groupedMatchdays.set(matchdayId, {
+      matchdayId,
+      roundNumber: 0,
+      matches: [match],
+      firstMatchTimestamp: timestamp,
+    })
+  }
+
+  return [...groupedMatchdays.values()]
+    .sort((left, right) => left.firstMatchTimestamp - right.firstMatchTimestamp)
+    .slice(0, 5)
+    .flatMap((group, index) =>
+      group.matches
+        .sort((left, right) => new Date(left.match_date).getTime() - new Date(right.match_date).getTime())
+        .map((match) => mapMatchTickerRow({ ...match, matchday: { round_number: index + 1 } })),
+    ) satisfies HomeMatchTickerItem[]
 }
 
 function normalizeTeamRelation(relation: HomeTeamRelation | HomeTeamRelation[] | null) {

@@ -48,7 +48,7 @@ export function StandingsPreviewSection({
                   }}
                   size="table"
                 />
-                <strong className="truncate text-[0.95rem] text-[var(--color-primary)]">
+                <strong className="hidden truncate text-[0.95rem] text-[var(--color-primary)] min-[901px]:block">
                   {team.teamName}
                 </strong>
                 <span className="text-center text-sm text-[var(--color-text)]">

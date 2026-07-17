@@ -86,7 +86,7 @@ export function LeadersSection({ leaders }: LeadersSectionProps) {
                     </strong>
                   </div>
                 </div>
-                <span className="truncate text-[0.82rem] text-[var(--color-text-muted)]">
+                <span className="hidden truncate text-[0.82rem] text-[var(--color-text-muted)] min-[901px]:block">
                   {row.teamName}
                 </span>
                 <span className="text-center text-sm font-extrabold text-[var(--color-primary)]">
