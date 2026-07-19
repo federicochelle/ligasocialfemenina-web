@@ -3,10 +3,12 @@ import { ScrollToTop } from '../components/ScrollToTop'
 import { BrandMark } from '../components/navigation/BrandMark'
 import { NavBar } from '../components/navigation/NavBar'
 import { SocialLinks } from '../components/navigation/SocialLinks'
+import { SeoManager } from '../seo/SeoManager'
 
 export function PublicLayout() {
   return (
     <>
+      <SeoManager />
       <ScrollToTop />
       <div className="flex min-h-screen flex-col">
         <NavBar />

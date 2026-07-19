@@ -1,0 +1,22 @@
+{
+  "name": "Liga Social Femenina de Básquetbol",
+  "short_name": "Liga Social",
+  "description": "Noticias, partidos, resultados y estadísticas de la Liga Social Femenina de Básquetbol.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
