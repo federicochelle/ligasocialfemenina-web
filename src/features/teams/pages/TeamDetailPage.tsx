@@ -113,7 +113,7 @@ export function TeamDetailPage() {
   const hasSeasonStats = (detail?.players.some((player) => player.gamesPlayed > 0) ?? false)
   return (
     <section className="public-page-shell flex flex-col gap-8 max-[640px]:gap-5">
-      <div className="rounded-[1.8rem] border border-[var(--color-line)] bg-white px-5 py-6 shadow-[0_18px_50px_rgba(5,12,31,0.12)] min-[901px]:px-8 min-[901px]:py-8">
+      <div className="-mx-5 bg-white px-5 py-6 min-[901px]:mx-0 min-[901px]:rounded-[1.8rem] min-[901px]:border min-[901px]:border-[var(--color-line)] min-[901px]:px-8 min-[901px]:py-8 min-[901px]:shadow-[0_18px_50px_rgba(5,12,31,0.12)]">
         <PageIntro
           eyebrow="Equipo"
           title="Perfil del equipo."
