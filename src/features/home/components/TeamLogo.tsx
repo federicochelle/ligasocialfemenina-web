@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom'
 import type { HomeTeamSummary } from '../types/home.types'
 
 type TeamLogoProps = {
   team: HomeTeamSummary
   size?: 'ticker' | 'table' | 'card' | 'band' | 'detail'
+  linkToTeam?: boolean
 }
 
 const variantClasses = {
@@ -40,7 +42,7 @@ const variantClasses = {
   }
 >
 
-export function TeamLogo({ team, size = 'card' }: TeamLogoProps) {
+export function TeamLogo({ team, size = 'card', linkToTeam = true }: TeamLogoProps) {
   const initials = team.name
     .split(' ')
     .filter(Boolean)
@@ -48,8 +50,7 @@ export function TeamLogo({ team, size = 'card' }: TeamLogoProps) {
     .map((chunk) => chunk[0]?.toUpperCase() ?? '')
     .join('')
   const variant = variantClasses[size] ?? variantClasses.card
-
-  return (
+  const content = (
     <div
       className={[
         'aspect-square shrink-0 overflow-visible bg-transparent flex items-center justify-center',
@@ -78,5 +79,15 @@ export function TeamLogo({ team, size = 'card' }: TeamLogoProps) {
         </div>
       )}
     </div>
+  )
+
+  if (!linkToTeam || !team.id) {
+    return content
+  }
+
+  return (
+    <Link to={`/equipos/${team.id}`} aria-label={`Ver equipo ${team.name}`}>
+      {content}
+    </Link>
   )
 }

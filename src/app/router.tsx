@@ -1,10 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { PageIntro } from '../components/placeholders/PageIntro'
 import { HomePage } from '../features/home/pages/HomePage'
+import { MatchDetailPage } from '../features/matches/pages/MatchDetailPage'
 import { MatchesPage } from '../features/matches/pages/MatchesPage'
 import { NewsDetailPage } from '../features/news/pages/NewsDetailPage'
 import { NewsListPage } from '../features/news/pages/NewsListPage'
 import { StatisticsPage } from '../features/statistics/pages/StatisticsPage'
+import { TeamDetailPage } from '../features/teams/pages/TeamDetailPage'
 import { PublicLayout } from '../layouts/PublicLayout'
 
 function NotFoundPage() {
@@ -41,8 +43,16 @@ export const router = createBrowserRouter([
         element: <MatchesPage />,
       },
       {
+        path: 'partidos/:matchId',
+        element: <MatchDetailPage />,
+      },
+      {
         path: 'estadisticas',
         element: <StatisticsPage />,
+      },
+      {
+        path: 'equipos/:teamId',
+        element: <TeamDetailPage />,
       },
       {
         path: '*',

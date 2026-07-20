@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { HomeMatchTickerItem } from '../types/home.types'
 
 type MatchTickerCardProps = {
@@ -19,7 +20,10 @@ export function MatchTickerCard({ match }: MatchTickerCardProps) {
   const isFinished = match.status === 'finished'
 
   return (
-    <article className="grid h-[8.4rem] gap-[0.5rem] rounded-[0.35rem] border border-[rgba(11,27,69,0.08)] bg-[rgba(255,255,255,0.96)] px-[0.8rem] py-[0.7rem] shadow-[0_10px_20px_rgba(8,17,41,0.08)]">
+    <Link
+      to={`/partidos/${match.id}`}
+      className="grid h-[8.4rem] gap-[0.5rem] rounded-[0.35rem] border border-[rgba(11,27,69,0.08)] bg-[rgba(255,255,255,0.96)] px-[0.8rem] py-[0.7rem] shadow-[0_10px_20px_rgba(8,17,41,0.08)]"
+    >
       <div className="-mx-[0.2rem] flex items-center justify-between gap-2 rounded-[0.3rem] bg-[rgba(11,27,69,0.05)] px-[0.4rem] py-[0.22rem]">
         <span className="text-[0.62rem] leading-[1.1] font-extrabold tracking-[0.04em] text-[var(--color-text-muted)]">
           {match.seasonLabel ?? 'Liga Social Femenina'}
@@ -65,6 +69,6 @@ export function MatchTickerCard({ match }: MatchTickerCardProps) {
         <span>{dateFormatter.format(new Date(match.matchDate))}</span>
         <span>{timeFormatter.format(new Date(match.matchDate))}</span>
       </div>
-    </article>
+    </Link>
   )
 }

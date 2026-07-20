@@ -134,7 +134,7 @@ export function LeaderRankingsPanel({
                 <div className="flex min-w-0 items-center gap-3">
                   <TeamLogo
                     team={{
-                      id: row.teamId ?? row.playerId,
+                      id: row.teamId ?? '',
                       name: row.teamName,
                       logoUrl: row.teamLogoUrl,
                     }}

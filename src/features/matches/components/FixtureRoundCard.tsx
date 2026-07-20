@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { TeamLogo } from '../../home/components/TeamLogo'
 import type { PublicMatchRound } from '../types/matches.types'
 
@@ -30,28 +31,25 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
           const courtLabel = match.field ?? match.venue ?? 'Cancha por confirmar'
 
           return (
-            <div
+            <Link
               key={match.id}
-              className="grid grid-cols-[2.6rem_2.2rem_minmax(0,1fr)_2.2rem_2.6rem] items-center gap-2 px-4 py-4 min-[901px]:grid-cols-[minmax(0,1fr)_9rem_minmax(0,1fr)] min-[901px]:gap-4"
+              to={`/partidos/${match.id}`}
+              className="grid grid-cols-[minmax(0,1fr)_5.5rem_minmax(0,1fr)] items-center gap-3 px-4 py-4 min-[901px]:grid-cols-[minmax(0,1fr)_9rem_minmax(0,1fr)] min-[901px]:gap-4"
             >
-              <div className="min-[901px]:grid min-[901px]:grid-cols-[2.6rem_minmax(0,1fr)_auto] min-[901px]:items-center min-[901px]:gap-3">
-                <TeamLogo team={match.homeTeam} size="table" />
-                <span className="hidden truncate text-[0.95rem] font-semibold text-[var(--color-primary)] min-[901px]:block">
+              <div className="grid grid-cols-[2.6rem_minmax(0,1fr)_auto] items-center gap-2 min-[901px]:gap-3">
+                <TeamLogo team={match.homeTeam} size="table" linkToTeam={false} />
+                <span className="truncate text-[0.88rem] font-semibold text-[var(--color-primary)] min-[901px]:text-[0.95rem]">
                   {match.homeTeam.name}
                 </span>
-                {isFinished ? (
-                  <strong className="hidden text-[1rem] font-extrabold text-[var(--color-primary)] min-[901px]:block">
-                    {match.homeScore ?? 0}
-                  </strong>
-                ) : null}
-              </div>
-
-              <div className="grid min-h-[1.5rem] place-items-center min-[901px]:hidden">
-                {isFinished ? (
-                  <strong className="text-[1rem] font-extrabold text-[var(--color-primary)]">
-                    {match.homeScore ?? 0}
-                  </strong>
-                ) : null}
+                <strong
+                  className={[
+                    'text-[1rem] font-extrabold text-[var(--color-primary)]',
+                    isFinished ? '' : 'opacity-0',
+                  ].join(' ')}
+                  aria-hidden={!isFinished}
+                >
+                  {isFinished ? match.homeScore ?? 0 : '0'}
+                </strong>
               </div>
 
               <div className="grid gap-1 text-center">
@@ -74,28 +72,24 @@ export function FixtureRoundCard({ round }: FixtureRoundCardProps) {
                 </span>
               </div>
 
-              <div className="grid min-h-[1.5rem] place-items-center min-[901px]:hidden">
-                {isFinished ? (
-                  <strong className="text-[1rem] font-extrabold text-[var(--color-primary)]">
-                    {match.awayScore ?? 0}
-                  </strong>
-                ) : null}
-              </div>
-
-              <div className="justify-self-end min-[901px]:grid min-[901px]:grid-cols-[auto_auto_2.6rem] min-[901px]:items-center min-[901px]:justify-end min-[901px]:gap-2">
-                {isFinished ? (
-                  <strong className="hidden text-[1rem] font-extrabold text-[var(--color-primary)] min-[901px]:block">
-                    {match.awayScore ?? 0}
-                  </strong>
-                ) : null}
-                <span className="hidden max-w-[10rem] truncate text-right text-[0.95rem] font-semibold text-[var(--color-primary)] min-[901px]:block">
+              <div className="grid grid-cols-[auto_minmax(0,1fr)_2.6rem] items-center justify-self-stretch gap-2 min-[901px]:gap-3">
+                <strong
+                  className={[
+                    'text-[1rem] font-extrabold text-[var(--color-primary)]',
+                    isFinished ? '' : 'opacity-0',
+                  ].join(' ')}
+                  aria-hidden={!isFinished}
+                >
+                  {isFinished ? match.awayScore ?? 0 : '0'}
+                </strong>
+                <span className="justify-self-end truncate text-right text-[0.88rem] font-semibold text-[var(--color-primary)] min-[901px]:text-[0.95rem]">
                   {match.awayTeam.name}
                 </span>
-                <div>
-                  <TeamLogo team={match.awayTeam} size="table" />
+                <div className="justify-self-end">
+                  <TeamLogo team={match.awayTeam} size="table" linkToTeam={false} />
                 </div>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
