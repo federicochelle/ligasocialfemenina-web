@@ -60,7 +60,14 @@ const statisticValueCandidates: Record<StatisticsCategory, string[]> = {
   points: ['points'],
   rebounds: ['rebounds'],
   assists: ['assists'],
-  triples: ['triples', 'three_points_made', 'three_pointers_made', 'three_points', 'triples_made'],
+  triples: [
+    'triples',
+    'three_pointers',
+    'three_points_made',
+    'three_pointers_made',
+    'three_points',
+    'triples_made',
+  ],
   blocks: ['blocks', 'block_shots'],
 }
 
@@ -99,14 +106,26 @@ function normalizePlayerId(row: PlayerStatRow) {
 }
 
 function getNumericValue(value: unknown) {
-  return typeof value === 'number' && Number.isFinite(value) ? value : 0
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    const parsedValue = Number(value)
+
+    if (Number.isFinite(parsedValue)) {
+      return parsedValue
+    }
+  }
+
+  return 0
 }
 
 function getStatValue(row: PlayerStatRow, category: StatisticsCategory) {
   for (const key of statisticValueCandidates[category]) {
-    const value = row[key]
+    const value = getNumericValue(row[key])
 
-    if (typeof value === 'number' && Number.isFinite(value)) {
+    if (value !== 0 || row[key] === 0 || row[key] === '0') {
       return value
     }
   }
